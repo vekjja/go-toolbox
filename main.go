@@ -26,6 +26,25 @@ func GetHomeDir() string {
 	}
 }
 
+func Confirm(q string) bool {
+	a := GetInput(q + " (Y/n) ")
+	var res bool
+	switch a {
+	case "":
+		fallthrough
+	case "y":
+		fallthrough
+	case "Y":
+		res = true
+	case "n":
+	case "N":
+		res = false
+	default:
+		return Confirm(q)
+	}
+	return res
+}
+
 func GetInput(q string) string {
 	if q != "" {
 		fmt.Print(q)
