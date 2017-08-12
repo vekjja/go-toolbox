@@ -13,32 +13,7 @@ import (
 	"strings"
 )
 
-// MultiDimentionalSliceEq : compare two slices
-func MultiDimentionalSliceEq(a, b [][]int) bool {
-	if a == nil && b == nil {
-		return true
-	}
-
-	if a == nil || b == nil {
-		return false
-	}
-
-	if len(a) != len(b) {
-		return false
-	}
-
-	for i := range a {
-		for j := range a[i] {
-			if a[i][j] != b[i][j] {
-				return false
-			}
-		}
-	}
-
-	return true
-}
-
-// Loop2D : loop through 2 nested for loops
+// Loop2D : loop through 2 dimentional slice with 2 nested for loops uwing provided width and height
 func Loop2D(height, width int, logic func(row, col int)) {
 	for row := 0; row < height; row++ {
 		for col := 0; col < width; col++ {
