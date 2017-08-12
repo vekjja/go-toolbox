@@ -13,8 +13,8 @@ import (
 	"strings"
 )
 
-// SliceEquality : compare two slices
-func SliceEquality(a, b []int) bool {
+// MultiDimentionalSliceEq : compare two slices
+func MultiDimentionalSliceEq(a, b [][]int) bool {
 	if a == nil && b == nil {
 		return true
 	}
@@ -28,8 +28,10 @@ func SliceEquality(a, b []int) bool {
 	}
 
 	for i := range a {
-		if a[i] != b[i] {
-			return false
+		for j := range a[i] {
+			if a[i][j] != b[i][j] {
+				return false
+			}
 		}
 	}
 
