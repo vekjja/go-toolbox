@@ -1,8 +1,9 @@
-package main
+package gtils
 
 import (
 	"bufio"
 	"bytes"
+	"fmt"
 	"io"
 	"io/ioutil"
 	"net"
@@ -11,6 +12,38 @@ import (
 	"os/user"
 	"strings"
 )
+
+// SliceEquality : compare two slices
+func SliceEquality(a, b []int) bool {
+	if a == nil && b == nil {
+		return true
+	}
+
+	if a == nil || b == nil {
+		return false
+	}
+
+	if len(a) != len(b) {
+		return false
+	}
+
+	for i := range a {
+		if a[i] != b[i] {
+			return false
+		}
+	}
+
+	return true
+}
+
+// Loop2D : loop through 2 nested for loops
+func Loop2D(height, width int, logic func(row, col int)) {
+	for row := 0; row < height; row++ {
+		for col := 0; col < width; col++ {
+			logic(row, col)
+		}
+	}
+}
 
 // SendRequest : send http request to provided url
 func SendRequest(req *http.Request) []byte {
@@ -26,7 +59,7 @@ func SendRequest(req *http.Request) []byte {
 // EoE : exit with error code 1 and print if err is notnull
 func EoE(msg string, err error) {
 	if err != nil {
-		println("❌  "+msg, err)
+		fmt.Printf("\n❌  %s\n   %v\n", msg, err)
 		os.Exit(1)
 	}
 }
@@ -34,11 +67,10 @@ func EoE(msg string, err error) {
 // GetHomeDir : returns a full path to user's home dorectory
 func GetHomeDir() string {
 	usr, err := user.Current()
-	EoE("Failed to get Home Directory", err)
+	EoE("Failed to get Current User", err)
 	if usr.HomeDir != "" {
 		return usr.HomeDir
 	}
-	// Maybe it's cross compilation without cgo support. (darwin, unix)
 	return os.Getenv("HOME")
 }
 
