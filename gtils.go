@@ -22,6 +22,23 @@ func Loop2D(height, width int, logic func(row, col int)) {
 	}
 }
 
+// DownloadImage : download image from provided url and save to provided filelocation
+func DownloadImage(url, fileName string) {
+	response, err := http.Get(url)
+	EoE("Error Getting Image", err)
+
+	defer response.Body.Close()
+
+	//open a file for writing
+	file, err := os.Create(fileName)
+	EoE("Error Creating File", err)
+
+	// Use io.Copy to just dump the response body to the file. This supports huge files
+	_, err = io.Copy(file, response.Body)
+	EoE("Error Saving Image File", err)
+	file.Close()
+}
+
 // SendRequest : send http request to provided url
 func SendRequest(req *http.Request) []byte {
 	client := http.Client{}
@@ -39,6 +56,14 @@ func EoE(msg string, err error) {
 		fmt.Printf("\n❌  %s\n   %v\n", msg, err)
 		os.Exit(1)
 	}
+}
+
+// RoE : return the error is exisists
+func RoE(msg string, err error) error {
+	if err != nil {
+		return err
+	}
+	return nil
 }
 
 // GetHomeDir : returns a full path to user's home dorectory
