@@ -54,7 +54,7 @@ func DownloadImage(url, fileName string) {
 func LoE(msg string, err error) {
 	if err != nil {
 		fmt.Printf("\n❌  %s\n   %v\n", msg, err)
-		// log.Fatal(err)
+		panic(err)
 	}
 }
 
@@ -63,6 +63,7 @@ func EoE(msg string, err error) {
 	if err != nil {
 		fmt.Printf("\n❌  %s\n   %v\n", msg, err)
 		os.Exit(1)
+		panic(err)
 	}
 }
 
