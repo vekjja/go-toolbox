@@ -10,6 +10,7 @@ import (
 	"net/http"
 	"os"
 	"os/user"
+	"strconv"
 	"strings"
 )
 
@@ -49,15 +50,12 @@ func DownloadImage(url, fileName string) {
 	file.Close()
 }
 
-// SendRequest : send http request to provided url
-func SendRequest(req *http.Request) []byte {
-	client := http.Client{}
-	res, err := client.Do(req)
-	EoE("Error Getting HTTP Response", err)
-
-	resData, err := ioutil.ReadAll(res.Body)
-	EoE("Error Parsing Response", err)
-	return resData
+// LoE : exit with error code 1 and print if err is notnull
+func LoE(msg string, err error) {
+	if err != nil {
+		fmt.Printf("\n❌  %s\n   %v\n", msg, err)
+		// log.Fatal(err)
+	}
 }
 
 // EoE : exit with error code 1 and print if err is notnull
@@ -68,12 +66,15 @@ func EoE(msg string, err error) {
 	}
 }
 
-// LoE : exit with error code 1 and print if err is notnull
-func LoE(msg string, err error) {
-	if err != nil {
-		fmt.Printf("\n❌  %s\n   %v\n", msg, err)
-		// log.Fatal(err)
-	}
+// SendRequest : send http request to provided url
+func SendRequest(req *http.Request) []byte {
+	client := http.Client{}
+	res, err := client.Do(req)
+	EoE("Error Getting HTTP Response", err)
+
+	resData, err := ioutil.ReadAll(res.Body)
+	EoE("Error Parsing HTTP Response", err)
+	return resData
 }
 
 // GetHomeDir : returns a full path to user's home dorectory
@@ -108,12 +109,24 @@ func Confirm(q string) bool {
 
 // GetInput : return string of user input
 func GetInput(q string) string {
-	if q != "" {
-		print(q)
-	}
+	print(q)
 	reader := bufio.NewReader(os.Stdin)
 	ans, _ := reader.ReadString('\n')
 	return strings.TrimRight(ans, "\n")
+}
+
+// SelectFromArray : select an element in the provided array
+func SelectFromArray(a []string) string {
+	fmt.Println("Choices:")
+	for i := range a {
+		fmt.Println("[", i, "]: "+a[i])
+	}
+	sel, err := strconv.Atoi(GetInput("Enter Number of Selection: "))
+	EoE("Error Getting Integer Input from User", err)
+	if sel <= len(a)-1 {
+		return a[sel]
+	}
+	return SelectFromArray(a)
 }
 
 // SetFromInput : set value of provided var to the value of user input
