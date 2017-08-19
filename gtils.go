@@ -22,20 +22,30 @@ func Loop2D(height, width int, logic func(row, col int)) {
 	}
 }
 
+// Mkdir : make a directory if it does not exist
+func Mkdir(filePath string) {
+	if _, err := os.Stat(filePath); os.IsNotExist(err) {
+		os.Mkdir(filePath, os.ModePerm)
+	}
+}
+
 // DownloadImage : download image from provided url and save to provided filelocation
 func DownloadImage(url, fileName string) {
 	response, err := http.Get(url)
-	EoE("Error Getting Image", err)
+	if err != nil {
+		return
+	}
+	LoE("Error Getting Image "+url, err)
 
 	defer response.Body.Close()
 
 	//open a file for writing
 	file, err := os.Create(fileName)
-	EoE("Error Creating File", err)
+	LoE("Error Creating File", err)
 
 	// Use io.Copy to just dump the response body to the file. This supports huge files
 	_, err = io.Copy(file, response.Body)
-	EoE("Error Saving Image File", err)
+	LoE("Error Saving Image File", err)
 	file.Close()
 }
 
@@ -58,12 +68,12 @@ func EoE(msg string, err error) {
 	}
 }
 
-// RoE : return the error is exisists
-func RoE(msg string, err error) error {
+// LoE : exit with error code 1 and print if err is notnull
+func LoE(msg string, err error) {
 	if err != nil {
-		return err
+		fmt.Printf("\n❌  %s\n   %v\n", msg, err)
+		// log.Fatal(err)
 	}
-	return nil
 }
 
 // GetHomeDir : returns a full path to user's home dorectory
