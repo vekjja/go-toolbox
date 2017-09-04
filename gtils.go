@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
+	"log"
 	"net"
 	"net/http"
 	"os"
@@ -13,6 +14,11 @@ import (
 	"strconv"
 	"strings"
 )
+
+// FtoA : convert float32 to string
+func FtoA(n float32) string {
+	return strconv.FormatFloat(float64(n), 'f', 6, 32)
+}
 
 // Loop2D : loop through 2 dimentional slice with 2 nested for loops uwing provided width and height
 func Loop2D(height, width int, logic func(row, col int)) {
@@ -53,7 +59,8 @@ func DownloadImage(url, fileName string) {
 // LoE : exit with error code 1 and print if err is notnull
 func LoE(msg string, err error) {
 	if err != nil {
-		fmt.Printf("\n❌  %s\n   %v\n", msg, err)
+		// fmt.Printf("\n❌  %s\n   %v\n", msg, err)
+		log.Printf("\n❌  %s\n   %v\n", msg, err)
 		panic(err)
 	}
 }
