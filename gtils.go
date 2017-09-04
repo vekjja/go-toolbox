@@ -15,6 +15,13 @@ import (
 	"strings"
 )
 
+// AtoUI8 : convert string to uint8
+func AtoUI8(s string) uint8 {
+	v, err := strconv.ParseUint(s, 10, 8)
+	EoE("Error COnverting String to Uin8", err)
+	return uint8(v)
+}
+
 // FtoA : convert float32 to string
 func FtoA(n float32) string {
 	return strconv.FormatFloat(float64(n), 'f', 6, 32)
