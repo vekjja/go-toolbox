@@ -19,7 +19,7 @@ import (
 
 // Random : return pseudo random number in range
 func Random(min, max int) int {
-	rand.Seed(time.Now().Unix())
+	rand.Seed(time.Now().UnixNano())
 	return rand.Intn(max-min) + min
 }
 
