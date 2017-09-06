@@ -7,13 +7,21 @@ import (
 	"io"
 	"io/ioutil"
 	"log"
+	"math/rand"
 	"net"
 	"net/http"
 	"os"
 	"os/user"
 	"strconv"
 	"strings"
+	"time"
 )
+
+// Random : return pseudo random number in range
+func Random(min, max int) int {
+	rand.Seed(time.Now().Unix())
+	return rand.Intn(max-min) + min
+}
 
 // AtoUI8 : convert string to uint8
 func AtoUI8(s string) uint8 {
