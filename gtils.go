@@ -17,6 +17,14 @@ import (
 	"time"
 )
 
+// readShaderFile : read the shader file and return null terminated string
+func readFile(filePath string) string {
+	data, err := ioutil.ReadFile(filePath)
+	gt.EoE("Error Reading File", err)
+	// return string(data) + "\x00"
+	return string(data) + "\x00"
+}
+
 // Random : return pseudo random number in range
 func Random(min, max int) int {
 	rand.Seed(time.Now().UnixNano())
