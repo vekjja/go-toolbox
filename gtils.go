@@ -20,7 +20,7 @@ import (
 // readShaderFile : read the shader file and return null terminated string
 func readFile(filePath string) string {
 	data, err := ioutil.ReadFile(filePath)
-	gt.EoE("Error Reading File", err)
+	EoE("Error Reading File", err)
 	// return string(data) + "\x00"
 	return string(data) + "\x00"
 }
