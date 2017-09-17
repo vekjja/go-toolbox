@@ -27,6 +27,14 @@ func ImportPathToDir(importPath string) (string, error) {
 		return "", err
 	}
 	return p.Dir, nil
+	// dir, err := importPathToDir("github.com/go-gl/example/gl41core-cube")
+	// if err != nil {
+	// 	log.Fatalln("Unable to find Go package in your GOPATH, it's needed to load assets:", err)
+	// }
+	// err = os.Chdir(dir)
+	// if err != nil {
+	// 	log.Panicln("os.Chdir:", err)
+	// }
 }
 
 // readShaderFile : read the shader file and return null terminated string
