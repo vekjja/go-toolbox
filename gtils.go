@@ -18,23 +18,17 @@ import (
 	"time"
 )
 
-// ImportPathToDir : resolves the absolute path from importPath.
+// SetDirPath : resolves the absolute path from importPath.
 // There doesn't need to be a valid Go package inside that import path,
 // but the directory must exist.
-func ImportPathToDir(importPath string) (string, error) {
-	p, err := build.Import(importPath, "", build.FindOnly)
-	if err != nil {
-		return "", err
-	}
-	return p.Dir, nil
-	// dir, err := importPathToDir("github.com/go-gl/example/gl41core-cube")
-	// if err != nil {
-	// 	log.Fatalln("Unable to find Go package in your GOPATH, it's needed to load assets:", err)
-	// }
-	// err = os.Chdir(dir)
-	// if err != nil {
-	// 	log.Panicln("os.Chdir:", err)
-	// }
+func SetDirPath(importPath string) {
+	// importPath = "github.com/seemywingz/gtils"
+	path, err := build.Import(importPath, "", build.FindOnly)
+	EoE("Unable to find Go package in your GOPATH, it's needed to load assets:", err)
+
+	err = os.Chdir(path.Dir)
+	EoE("Error Setting Package Dir", err)
+	// println(path.Dir)
 }
 
 // readShaderFile : read the shader file and return null terminated string
