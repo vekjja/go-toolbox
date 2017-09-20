@@ -1,4 +1,4 @@
-package gtils
+package gt
 
 import (
 	"bufio"
