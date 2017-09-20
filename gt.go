@@ -19,8 +19,7 @@ import (
 )
 
 // SetDirPath : resolves the absolute path from importPath.
-// There doesn't need to be a valid Go package inside that import path,
-// but the directory must exist.
+// There doesn't need to be a valid Go package inside that import path, but the directory must exist.
 func SetDirPath(importPath string) {
 	// importPath = "github.com/seemywingz/gtils"
 	path, err := build.Import(importPath, "", build.FindOnly)
@@ -29,14 +28,6 @@ func SetDirPath(importPath string) {
 	err = os.Chdir(path.Dir)
 	EoE("Error Setting Package Dir", err)
 	// println(path.Dir)
-}
-
-// readShaderFile : read the shader file and return null terminated string
-func readFile(filePath string) string {
-	data, err := ioutil.ReadFile(filePath)
-	EoE("Error Reading File", err)
-	// return string(data) + "\x00"
-	return string(data) + "\x00"
 }
 
 // Random : return pseudo random number in range
@@ -49,13 +40,6 @@ func Random(min, max int) int {
 func Randomf() float32 {
 	rand.Seed(time.Now().UnixNano())
 	return rand.Float32()
-}
-
-// AtoUI8 : convert string to uint8
-func AtoUI8(s string) uint8 {
-	v, err := strconv.ParseUint(s, 10, 8)
-	EoE("Error Converting String to Uin8", err)
-	return uint8(v)
 }
 
 // FtoA : convert float32 to string
@@ -83,9 +67,9 @@ func Mkdir(filePath string) {
 func DownloadImage(url, fileName string) {
 	response, err := http.Get(url)
 	if err != nil {
+		LoE("Error Getting Image "+url, err)
 		return
 	}
-	LoE("Error Getting Image "+url, err)
 
 	defer response.Body.Close()
 
@@ -102,13 +86,11 @@ func DownloadImage(url, fileName string) {
 // LoE : exit with error code 1 and print if err is notnull
 func LoE(msg string, err error) {
 	if err != nil {
-		// fmt.Printf("\n❌  %s\n   %v\n", msg, err)
 		log.Printf("\n❌  %s\n   %v\n", msg, err)
-		panic(err)
 	}
 }
 
-// EoE : exit with error code 1 and print if err is notnull
+// EoE : exit with error code 1 and print, if err is not nil
 func EoE(msg string, err error) {
 	if err != nil {
 		fmt.Printf("\n❌  %s\n   %v\n", msg, err)
