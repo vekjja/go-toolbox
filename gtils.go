@@ -45,6 +45,12 @@ func Random(min, max int) int {
 	return rand.Intn(max-min) + min
 }
 
+// Randomf : return pseudo random float32 number in range
+func Randomf() float32 {
+	rand.Seed(time.Now().UnixNano())
+	return rand.Float32()
+}
+
 // AtoUI8 : convert string to uint8
 func AtoUI8(s string) uint8 {
 	v, err := strconv.ParseUint(s, 10, 8)
