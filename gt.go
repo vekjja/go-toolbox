@@ -3,8 +3,8 @@ package gt
 import (
 	"bufio"
 	"bytes"
+	"errors"
 	"fmt"
-	"go/build"
 	"io"
 	"io/ioutil"
 	"log"
@@ -13,22 +13,13 @@ import (
 	"net/http"
 	"os"
 	"os/user"
+	"path/filepath"
+	"regexp"
+	"runtime"
 	"strconv"
 	"strings"
 	"time"
 )
-
-// SetDirPath : resolves the absolute path from importPath.
-// There doesn't need to be a valid Go package inside that import path, but the directory must exist.
-func SetDirPath(importPath string) {
-	// importPath = "github.com/seemywingz/gtils"
-	path, err := build.Import(importPath, "", build.FindOnly)
-	EoE("Unable to find Go package in your GOPATH, it's needed to load assets:", err)
-
-	err = os.Chdir(path.Dir)
-	EoE("Error Setting Package Dir", err)
-	// println(path.Dir)
-}
 
 // Random : return pseudo random number in range
 func Random(min, max int) int {
@@ -199,4 +190,25 @@ func LineCounter(r io.Reader) (int, error) {
 			return count, err
 		}
 	}
+}
+
+// SetRelPath : resolves the absolute path for provided relative path.
+func SetRelPath(relPath string) {
+	if _, filename, _, ok := runtime.Caller(1); ok {
+		re := regexp.MustCompile("[a-zA-Z0-9-]*.go$")
+		path := filepath.Join(re.ReplaceAllString(filename, ""), relPath)
+		EoE("Error Accessing relPath:", os.Chdir(path))
+	} else {
+		EoE("Error Getting Caller Location", errors.New(filename))
+	}
+}
+
+// ExecPath :
+func ExecPath() string {
+	ex, err := os.Executable()
+	if err != nil {
+		panic(err)
+	}
+	exPath := filepath.Dir(ex)
+	return exPath
 }
