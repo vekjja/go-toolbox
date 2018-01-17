@@ -54,8 +54,8 @@ func Mkdir(filePath string) {
 	}
 }
 
-// DownloadImage : download image from provided url and save to provided filelocation
-func DownloadImage(url, fileName string) {
+// DownloadFromURL : download image from provided url and save to provided filelocation
+func DownloadFromURL(url, fileName string) {
 	response, err := http.Get(url)
 	if err != nil {
 		LoE("Error Getting Image "+url, err)
