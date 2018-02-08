@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"bytes"
 	"encoding/base64"
+	"encoding/gob"
 	"errors"
 	"fmt"
 	"io"
@@ -21,6 +22,8 @@ import (
 	"strconv"
 	"strings"
 	"time"
+
+	"golang.org/x/oauth2"
 )
 
 // RandI : return pseudo random number in range
@@ -241,4 +244,30 @@ func OpenBrowser(url string) {
 		log.Fatal(err)
 	}
 
+}
+
+// SaveOauthToken : saves Token to local filesystem as GOB
+func SaveOauthToken(fileName string, tok *oauth2.Token) {
+	// create a file
+	dataFile, err := os.Create(fileName)
+	EoE("Error Creating Temporary Token on Filesystem", err)
+
+	// serialize the data
+	dataEncoder := gob.NewEncoder(dataFile)
+	dataEncoder.Encode(tok)
+}
+
+// LoadOauthToken : load token from filesystem as GOB
+func LoadOauthToken(fileName string, tok *oauth2.Token) {
+	// open data file
+	dataFile, err := os.Open(fileName)
+	EoE("Error Loading Auth Token from Filesystem", err)
+
+	dataDecoder := gob.NewDecoder(dataFile)
+	EoE("Error Decoding Auth Token", dataDecoder.Decode(tok))
+
+	// there must be a better way then to manually set the token type here
+	tok.TokenType = "Bearer"
+
+	dataFile.Close()
 }
