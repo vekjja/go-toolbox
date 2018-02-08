@@ -104,6 +104,7 @@ func SendRequest(req *http.Request) []byte {
 	client := http.Client{}
 	res, err := client.Do(req)
 	EoE("Error Getting HTTP Response", err)
+	defer res.Body.Close()
 
 	resData, err := ioutil.ReadAll(res.Body)
 	EoE("Error Parsing HTTP Response", err)
