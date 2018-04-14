@@ -224,6 +224,9 @@ func ExecPath() string {
 	return exPath
 }
 
+// Get Current Working Dir
+// os.Getwd()
+
 // OpenBrowser : open platform specific browser
 func OpenBrowser(url string) {
 	var err error
@@ -256,7 +259,7 @@ func WriteVar(file string, data interface{}) error {
 	return nil
 }
 
-// ReadVar : rad gob from loacal filesystem
+// ReadVar : read gob from loacal filesystem
 func ReadVar(file string, object interface{}) error {
 	gobFile, err := os.Open(file)
 	if err != nil {
