@@ -271,8 +271,8 @@ func ReadVar(file string, object interface{}) error {
 	return nil
 }
 
-// GetIP : get local ip address
-func getPubIP() string {
+// GetPubIP : get public ip address
+func GetPubIP() string {
 	// we are using a pulib IP API, we're using ipify here, below are some others
 	// https://www.ipify.org
 	// http://myexternalip.com
