@@ -7,6 +7,8 @@ import (
 	"net/http"
 )
 
+// Dark Sky API Docs: https://darksky.net/dev/docs
+
 // GetData : get weather data from darksky API
 func GetData(lat, long float32, apiKey, units string) (Data, error) {
 
@@ -125,4 +127,28 @@ type Alert struct {
 	Expires     int    `json:"expires"`
 	Description string `json:"description"`
 	URI         string `json:"uri"`
+}
+
+// MoonPhaseIcon : return Moon Phase Icon based on lunation number
+func MoonPhaseIcon(phase float64) string {
+	var icon string
+	switch {
+	case phase == 0:
+		icon = "🌑"
+	case phase > 0 && phase < 0.25:
+		icon = "🌒"
+	case phase == 0.25:
+		icon = "🌓"
+	case phase > 0.25 && phase < 0.5:
+		icon = "🌔"
+	case phase == 0.5:
+		icon = "🌕"
+	case phase >= 0.5 && phase < 0.75:
+		icon = "🌖"
+	case phase == 0.75:
+		icon = "🌗"
+	case phase > 0.75:
+		icon = "🌘"
+	}
+	return icon
 }
