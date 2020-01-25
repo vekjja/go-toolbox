@@ -164,7 +164,7 @@ func SelectFromArray(a []string) string {
 	return SelectFromArray(a)
 }
 
-// SetFromInput : set value of provided var to the value of user input
+// SetFromInput : set value of `a` to from user input
 func SetFromInput(q string, a *string) {
 	*a = strings.TrimRight(GetInput(q), "\n")
 }
