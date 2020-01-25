@@ -67,7 +67,7 @@ func GetHomeDir() string {
 
 // Confirm : return confirmation based on user input
 func Confirm(q string) bool {
-	print(q + " (Y/n) ")
+	print(q + " (Y/n):")
 	a := GetInput()
 	var res bool
 	switch strings.ToLower(a) {
@@ -113,11 +113,13 @@ func SelectFromArray(a []string) string {
 func SelectFromMap(m map[string]string) string {
 	fmt.Println("")
 	fmt.Println(MapToString(m))
+	fmt.Printf(":")
 	sel := GetInput()
 	if _, found := m[sel]; found {
 		return sel
 	}
-	fmt.Printf("%v is an Invalid Selection\n", sel)
+	fmt.Printf("\"%v\" is an Invalid Selection!!\n", sel)
+	fmt.Printf("Please Select From the Following:\n")
 	return SelectFromMap(m)
 }
 
