@@ -33,6 +33,9 @@ func GetData(lat, long float32, apiKey, units string) (Data, error) {
 
 // Data : basic response from Dark Sky API
 type Data struct {
+	Latitude  string      `json:"latitude"`
+	Longitude string      `json:"longitude"`
+	Timezone  string      `json:"timezone"`
 	Currently CurrentData `json:"currently"`
 	Minutely  struct {
 		Summary string `json:"summary"`
