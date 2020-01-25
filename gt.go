@@ -8,11 +8,8 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"log"
 	"math/rand"
-	"net"
-	"net/http"
 	"os"
 	"os/exec"
 	"os/user"
@@ -64,26 +61,6 @@ func Mkdir(filePath string) {
 	}
 }
 
-// DownloadFromURL : download image from provided url and save to provided filelocation
-func DownloadFromURL(url, fileName string) {
-	response, err := http.Get(url)
-	if err != nil {
-		LoE("Error Getting Image "+url, err)
-		return
-	}
-
-	defer response.Body.Close()
-
-	//open a file for writing
-	file, err := os.Create(fileName)
-	LoE("Error Creating File", err)
-
-	// Use io.Copy to just dump the response body to the file. This supports huge files
-	_, err = io.Copy(file, response.Body)
-	LoE("Error Saving Image File", err)
-	file.Close()
-}
-
 // LoE : exit with error code 1 and print if err is notnull
 func LoE(msg string, err error) {
 	if err != nil {
@@ -98,18 +75,6 @@ func EoE(msg string, err error) {
 		os.Exit(1)
 		panic(err)
 	}
-}
-
-// SendRequest : send http request to provided url
-func SendRequest(req *http.Request) []byte {
-	client := http.Client{}
-	res, err := client.Do(req)
-	EoE("Error Getting HTTP Response", err)
-	defer res.Body.Close()
-
-	resData, err := ioutil.ReadAll(res.Body)
-	EoE("Error Parsing HTTP Response", err)
-	return resData
 }
 
 // GetHomeDir : returns a full path to user's home dorectory
@@ -167,20 +132,6 @@ func SelectFromArray(a []string) string {
 // SetFromInput : set value of `a` to from user input
 func SetFromInput(q string, a *string) {
 	*a = strings.TrimRight(GetInput(q), "\n")
-}
-
-// GetIP : get local ip address
-func GetIP() string {
-	addrs, err := net.InterfaceAddrs()
-	EoE("Failed to Get Inet Address", err)
-	for _, a := range addrs {
-		if ipnet, ok := a.(*net.IPNet); ok && !ipnet.IP.IsLoopback() {
-			if ipnet.IP.To4() != nil {
-				return ipnet.IP.String()
-			}
-		}
-	}
-	return ""
 }
 
 // LineCounter : count number of lines `\n`
@@ -269,47 +220,4 @@ func ReadVar(file string, object interface{}) error {
 	err = decoder.Decode(object)
 	gobFile.Close()
 	return nil
-}
-
-// GetPubIP : get public ip address
-func GetPubIP() string {
-	// we are using a pulib IP API, we're using ipify here, below are some others
-	// https://www.ipify.org
-	// http://myexternalip.com
-	// http://api.ident.me
-	// http://whatismyipaddress.com/api
-	// https://ifconfig.co
-	// https://ifconfig.me
-	url := "https://api.ipify.org?format=text"
-	resp, err := http.Get(url)
-	EoE("Error Getting IP Address", err)
-	defer resp.Body.Close()
-	ip, err := ioutil.ReadAll(resp.Body)
-	EoE("Error Reading IP Address", err)
-	return string(ip)
-}
-
-func epochFormat(seconds int64) string {
-	epochTime := time.Unix(0, seconds*int64(time.Second))
-	return epochTime.Format("January 2, 3:04pm MST")
-}
-
-func epochFormatDate(seconds int64) string {
-	epochTime := time.Unix(0, seconds*int64(time.Second))
-	return epochTime.Format("January 2 (Monday)")
-}
-
-func epochFormatTime(seconds int64) string {
-	epochTime := time.Unix(0, seconds*int64(time.Second))
-	return epochTime.Format("3:04pm MST")
-}
-
-func epochFormatHour(seconds int64) string {
-	epochTime := time.Unix(0, seconds*int64(time.Second))
-	s := epochTime.Format("3pm")
-	s = s[:len(s)-1]
-	if len(s) == 2 {
-		s += " "
-	}
-	return s
 }
