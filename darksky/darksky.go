@@ -128,27 +128,3 @@ type Alert struct {
 	Description string `json:"description"`
 	URI         string `json:"uri"`
 }
-
-// MoonPhaseIcon : return Moon Phase Icon based on lunation number
-func MoonPhaseIcon(phase float64) string {
-	var icon string
-	switch {
-	case phase == 0:
-		icon = "🌑"
-	case phase > 0 && phase < 0.25:
-		icon = "🌒"
-	case phase == 0.25:
-		icon = "🌓"
-	case phase > 0.25 && phase < 0.5:
-		icon = "🌔"
-	case phase == 0.5:
-		icon = "🌕"
-	case phase >= 0.5 && phase < 0.75:
-		icon = "🌖"
-	case phase == 0.75:
-		icon = "🌗"
-	case phase > 0.75:
-		icon = "🌘"
-	}
-	return icon
-}
