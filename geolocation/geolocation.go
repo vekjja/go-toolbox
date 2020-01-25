@@ -1,4 +1,4 @@
-package location
+package geolocation
 
 import (
 	"bytes"
@@ -7,8 +7,8 @@ import (
 	"net/http"
 )
 
-// GeoLocationData : Data returned from opendatasoft
-type GeoLocationData struct {
+// Data : Data returned from opendatasoft
+type Data struct {
 	City        string  `json:"city"`
 	Latitude    float32 `json:"latitude"`
 	Longitude   float32 `json:"longitude"`
@@ -23,10 +23,10 @@ type GeoLocationData struct {
 
 // both of the folloing APIs are not provided by me 😅
 
-// GeoLocateFromIP : get location data based on IP
-func GeoLocateFromIP() (GeoLocationData, error) {
+// FromIP : get location data based on IP
+func FromIP() (Data, error) {
 
-	locationData := GeoLocationData{}
+	locationData := Data{}
 
 	url := "https://telize.j3ss.co/geoip"
 	res, err := http.Get(url)
@@ -45,10 +45,10 @@ func GeoLocateFromIP() (GeoLocationData, error) {
 
 }
 
-// GeoLocate : Use Google Location Servicies to get location data from search string
-func GeoLocate(location string) (GeoLocationData, error) {
+// Locate : Use Google Location Servicies to get location data from search string
+func Locate(location string) (Data, error) {
 
-	locationData := GeoLocationData{}
+	locationData := Data{}
 	url := "https://geocode.jessfraz.com/geocode"
 
 	reqBody, _ := json.Marshal(map[string]string{

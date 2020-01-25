@@ -1,15 +1,13 @@
-package gt
+package gtb
 
 import (
 	"bufio"
 	"bytes"
-	"encoding/base64"
 	"encoding/gob"
 	"errors"
 	"fmt"
 	"io"
 	"log"
-	"math/rand"
 	"os"
 	"os/exec"
 	"os/user"
@@ -18,27 +16,7 @@ import (
 	"runtime"
 	"strconv"
 	"strings"
-	"time"
 )
-
-// RandI : return pseudo random number in range
-func RandI(min, max int) int {
-	rand.Seed(time.Now().UnixNano())
-	return rand.Intn(max-min) + min
-}
-
-// RandF : return pseudo random float32 number in range
-func RandF() float32 {
-	rand.Seed(time.Now().UnixNano())
-	return rand.Float32()
-}
-
-// RandToken : generate random token, use case: oath2
-func RandToken() string {
-	b := make([]byte, 32)
-	rand.Read(b)
-	return base64.StdEncoding.EncodeToString(b)
-}
 
 // FtoA : convert float32 to string
 func FtoA(n float32) string {
