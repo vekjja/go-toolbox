@@ -67,17 +67,19 @@ func GetHomeDir() string {
 
 // Confirm : return confirmation based on user input
 func Confirm(q string) bool {
-	a := GetInput(q + " (Y/n) ")
+	print(q + " (Y/n) ")
+	a := GetInput()
 	var res bool
-	switch a {
+	switch strings.ToLower(a) {
 	case "":
 		fallthrough
 	case "y":
 		fallthrough
-	case "Y":
+	case "yes":
 		res = true
 	case "n":
-	case "N":
+		fallthrough
+	case "no":
 		res = false
 	default:
 		return Confirm(q)
@@ -86,8 +88,7 @@ func Confirm(q string) bool {
 }
 
 // GetInput : return string of user input
-func GetInput(q string) string {
-	print(q)
+func GetInput() string {
 	reader := bufio.NewReader(os.Stdin)
 	ans, _ := reader.ReadString('\n')
 	return strings.TrimRight(ans, "\n")
@@ -99,7 +100,8 @@ func SelectFromArray(a []string) string {
 	for i := range a {
 		fmt.Println("[", i, "]: "+a[i])
 	}
-	sel, err := strconv.Atoi(GetInput("Enter Number of Selection: "))
+	fmt.Println("Enter Number of Selection: ")
+	sel, err := strconv.Atoi(GetInput())
 	EoE("Error Getting Integer Input from User", err)
 	if sel <= len(a)-1 {
 		return a[sel]
@@ -107,10 +109,31 @@ func SelectFromArray(a []string) string {
 	return SelectFromArray(a)
 }
 
-// SetFromInput : set value of `a` to from user input
-func SetFromInput(q string, a *string) {
-	*a = strings.TrimRight(GetInput(q), "\n")
+// SelectFromMap : select an element in the provided map
+func SelectFromMap(m map[string]string) string {
+	fmt.Println("")
+	fmt.Println(MapToString(m))
+	sel := GetInput()
+	if _, found := m[sel]; found {
+		return sel
+	}
+	fmt.Printf("%v is an Invalid Selection\n", sel)
+	return SelectFromMap(m)
 }
+
+// MapToString : convert map[string]string to string
+func MapToString(m map[string]string) string {
+	b := new(bytes.Buffer)
+	for key, value := range m {
+		fmt.Fprintf(b, "  %s: %s\n", key, value)
+	}
+	return b.String()
+}
+
+// SetFromInput : set value of `a` to from user input
+// func SetFromInput(q string, a *string) {
+// 	*a = strings.TrimRight(GetInput(q), "\n")
+// }
 
 // LineCounter : count number of lines `\n`
 func LineCounter(r io.Reader) (int, error) {
