@@ -45,7 +45,7 @@ func FromIP() (Data, error) {
 
 }
 
-// Locate : Use Google Location Servicies to get location data from search string
+// Locate : Use Google Location Services to get location data from search string
 func Locate(location string) (Data, error) {
 
 	locationData := Data{}
