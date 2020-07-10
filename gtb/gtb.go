@@ -224,3 +224,11 @@ func ReadVar(file string, object interface{}) error {
 	gobFile.Close()
 	return nil
 }
+
+// SplitMulti : Split String on Multiple Delimiters
+func SplitMulti(s string, delims string) []string {
+	splitter := func(r rune) bool {
+		return strings.ContainsRune(delims, r)
+	}
+	return strings.FieldsFunc(s, splitter)
+}
