@@ -18,6 +18,15 @@ import (
 	"strings"
 )
 
+// StringToInt64 : Convet String to Int64
+func StringToInt64(s string) (int64, error) {
+	n, err := strconv.Atoi(s)
+	if err != nil {
+		return 0, err
+	}
+	return int64(n), nil
+}
+
 // FtoA : convert float32 to string
 func FtoA(n float32) string {
 	return strconv.FormatFloat(float64(n), 'f', 6, 32)
