@@ -38,6 +38,9 @@ go test -v ./gtb
 ```
 #### Expected Output
 ```sh 
+=== RUN   TestOpenBrowser
+/usr/bin/open https://google.com
+--- PASS: TestOpenBrowser (0.00s)
 === RUN   TestGetUserInfo
 --- PASS: TestGetUserInfo (0.00s)
 === RUN   TestSplitMulti
@@ -47,7 +50,7 @@ go test -v ./gtb
 === RUN   TestGetFilesInDir
 --- PASS: TestGetFilesInDir (0.00s)
 PASS
-ok      code_submission/common  0.015s
+ok      github.com/seemywingz/gotoolbox/gtb     0.013s
 ```
 ## Run in Docker
 ### Prerequisites 
@@ -58,8 +61,11 @@ docker compose up
 ```
 #### Expected Output
 ```sh 
-Recreating code_submission_go-test_1 ... done
-Attaching to code_submission_go-test_1
+Starting gotoolbox_go-test_1 ... done
+Attaching to gotoolbox_go-test_1
+go-test_1  | === RUN   TestOpenBrowser
+go-test_1  | xdg-open https://google.com
+go-test_1  | --- PASS: TestOpenBrowser (0.00s)
 go-test_1  | === RUN   TestGetUserInfo
 go-test_1  | --- PASS: TestGetUserInfo (0.00s)
 go-test_1  | === RUN   TestSplitMulti
@@ -69,6 +75,6 @@ go-test_1  | --- PASS: TestAToUint32 (0.00s)
 go-test_1  | === RUN   TestGetFilesInDir
 go-test_1  | --- PASS: TestGetFilesInDir (0.01s)
 go-test_1  | PASS
-go-test_1  | ok         common  0.016s
-code_submission_go-test_1 exited with code 0
+go-test_1  | ok         gtb     0.013s
+gotoolbox_go-test_1 exited with code 0
 ```
