@@ -19,9 +19,6 @@ A set of golang utility functions
 * [docker 18.09 or later](https://docs.docker.com/get-docker/)  
   * `brew update && brew cask install docker` 
 
-### check_beelzebub_open_files  
-`DOCKER_BUILDKIT=1 docker build -o bin --build-arg APP=check_beelzebub_open_files .`
-
 ### desiredApp  
 `DOCKER_BUILDKIT=1 docker build -o bin --build-arg APP=desiredApp .`
 
@@ -37,7 +34,7 @@ These commands will compile the specified application and place the executable i
 * [golang 1.15 or later](https://golang.org/doc/install)  
   * `brew update && brew install go` 
 ```sh
-go test -v ./common
+go test -v ./gtb
 ```
 #### Expected Output
 ```sh 
