@@ -8,9 +8,6 @@ A set of golang utility functions
 * [golang 1.15 or later](https://golang.org/doc/install)  
   * `brew update && brew install go`  
  
-### check_beelzebub_open_files  
-`GOOS=linux go build -o ./bin/check_beelzebub_open_files ./check_beelzebub_open_files` 
-
 ### desiredApp  
 `GOOS=linux go build -o ./bin/desiredApp ./desiredApp` 
 
