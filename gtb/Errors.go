@@ -2,21 +2,17 @@ package gtb
 
 import (
 	"fmt"
-	"log"
 	"os"
 )
 
-// LoE : exit with error code 1 and print if err is notnull
-func LoE(msg string, err error) {
-	if err != nil {
-		log.Printf("\n❌  %s\n   %v\n", msg, err)
-	}
+func printError(err error, msg ...string) {
+	fmt.Printf("\n💔 %s\n   %v\n", msg, err)
 }
 
-// EoE : exit with error code 1 and print, if err is not nil
-func EoE(msg string, err error) {
+// EoE : exit on error, if err is not nil
+func EoE(err error, msg ...string) {
 	if err != nil {
-		fmt.Printf("\n❌  %s\n   %v\n", msg, err)
+		printError(err, msg...)
 		os.Exit(1)
 		panic(err)
 	}

@@ -13,8 +13,8 @@ func SetRelPath(relPath string) {
 	if _, filename, _, ok := runtime.Caller(1); ok {
 		re := regexp.MustCompile("[a-zA-Z0-9-]*.go$")
 		path := filepath.Join(re.ReplaceAllString(filename, ""), relPath)
-		EoE("Error Accessing relPath:", os.Chdir(path))
+		EoE(os.Chdir(path), "Error Accessing relPath:")
 	} else {
-		EoE("Error Getting Caller Location", errors.New(filename))
+		EoE(errors.New(filename), "Error Getting Caller Location")
 	}
 }

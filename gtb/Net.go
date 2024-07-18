@@ -1,14 +1,13 @@
-package net
+package gtb
 
 import (
 	"io"
-	"io/ioutil"
 	"net"
 	"net/http"
 	"os"
 )
 
-// DownloadFromURL : download image from provided url and save to provided filelocation
+// DownloadFromURL : download from provided url and save to provided file location
 func DownloadFromURL(url, fileName string) error {
 	response, err := http.Get(url)
 	if err != nil {
@@ -42,7 +41,7 @@ func SendRequest(req *http.Request) ([]byte, error) {
 	}
 	defer res.Body.Close()
 
-	resData, err := ioutil.ReadAll(res.Body)
+	resData, err := io.ReadAll(res.Body)
 	if err != nil {
 		return nil, err
 	}
@@ -80,7 +79,7 @@ func GetPubIP() (string, error) {
 		return "", err
 	}
 	defer resp.Body.Close()
-	ip, err := ioutil.ReadAll(resp.Body)
+	ip, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return "", err
 	}

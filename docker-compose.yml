@@ -1,9 +1,0 @@
-version: "3.8"
-services:
-  go-test:
-    image: golang:1.15-alpine
-    volumes:
-      - ./gtb:/go/src/gtb
-    environment:
-      - CGO_ENABLED=0
-    command:  go test -v gtb

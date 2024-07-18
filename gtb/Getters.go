@@ -33,7 +33,7 @@ func GetFilesInDir(path string) []os.FileInfo {
 // GetHomeDir : returns a full path to user's home directory
 func GetHomeDir() string {
 	usr, err := user.Current()
-	EoE("Failed to get Current User", err)
+	EoE(err, "Failed to get Current User")
 	if usr.HomeDir != "" {
 		return usr.HomeDir
 	}
