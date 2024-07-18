@@ -13,7 +13,7 @@ func SelectFromArray(a []string) string {
 	}
 	fmt.Println("Enter Number of Selection: ")
 	sel, err := strconv.Atoi(GetInput())
-	EoE(err, "Error Getting Integer Input from User")
+	EoE(fmt.Errorf("Error Getting Integer Input from User: %w", err))
 	if sel <= len(a)-1 {
 		return a[sel]
 	}

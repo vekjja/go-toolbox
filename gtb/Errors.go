@@ -5,14 +5,14 @@ import (
 	"os"
 )
 
-func printError(err error, msg ...string) {
-	fmt.Printf("\n💔 %s\n   %v\n", msg, err)
+func printError(err error) {
+	fmt.Printf("\n💔 %v\n", err)
 }
 
-// EoE : exit on error, if err is not nil
-func EoE(err error, msg ...string) {
+// EoE : if err is not nil print error and exit
+func EoE(err error) {
 	if err != nil {
-		printError(err, msg...)
+		printError(err)
 		os.Exit(1)
 		panic(err)
 	}
