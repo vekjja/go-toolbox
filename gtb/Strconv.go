@@ -6,10 +6,30 @@ import (
 	"log"
 	"strconv"
 	"strings"
+
+	"github.com/dustin/go-humanize"
 )
 
-// AToUint32 : Convert string to Uint32
-func AToUint32(a string) uint32 {
+// AToFHR : Convert string to human readable float
+func AToHRF(a string) string {
+	f, err := strconv.ParseFloat(a, 64)
+	if err != nil {
+		EoE(err)
+	}
+	return humanize.Commaf(f)
+}
+
+// AToI64 : Convert String to Int64
+func AToI64(s string) (int64, error) {
+	n, err := strconv.Atoi(s)
+	if err != nil {
+		return 0, err
+	}
+	return int64(n), nil
+}
+
+// AToU32 : Convert string to Uint32
+func AToU32(a string) uint32 {
 
 	i, err := strconv.Atoi(a)
 	if err != nil {
@@ -39,13 +59,4 @@ func SplitMulti(s string, delims string) []string {
 		return strings.ContainsRune(delims, r)
 	}
 	return strings.FieldsFunc(s, splitter)
-}
-
-// StringToInt64 : Convet String to Int64
-func StringToInt64(s string) (int64, error) {
-	n, err := strconv.Atoi(s)
-	if err != nil {
-		return 0, err
-	}
-	return int64(n), nil
 }
