@@ -3,29 +3,33 @@ package gtb
 import (
 	"bytes"
 	"fmt"
-	"log"
 	"strconv"
 	"strings"
 
 	"github.com/dustin/go-humanize"
 )
 
-// AToFHR : Convert string to human readable float
+// AToHRF : Convert string to human readable float
 func AToHRF(a string) string {
+	f := AToF(a)
+	return humanize.CommafWithDigits(f, 2)
+}
+
+func AToF(a string) float64 {
 	f, err := strconv.ParseFloat(a, 64)
 	if err != nil {
 		EoE(err)
 	}
-	return humanize.Commaf(f)
+	return f
 }
 
 // AToI64 : Convert String to Int64
-func AToI64(s string) (int64, error) {
+func AToI64(s string) int64 {
 	n, err := strconv.Atoi(s)
 	if err != nil {
-		return 0, err
+		EoE(err)
 	}
-	return int64(n), nil
+	return int64(n)
 }
 
 // AToU32 : Convert string to Uint32
@@ -33,7 +37,7 @@ func AToU32(a string) uint32 {
 
 	i, err := strconv.Atoi(a)
 	if err != nil {
-		log.Fatal(err)
+		EoE(err)
 	}
 
 	return uint32(i)

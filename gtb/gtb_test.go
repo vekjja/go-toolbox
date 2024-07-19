@@ -32,7 +32,7 @@ func TestGetUserInfo(t *testing.T) {
 
 	usr := GetUserInfo(userName, 0)
 
-	if AToUint32(usr.Uid) != uint32(0) {
+	if AToU32(usr.Uid) != uint32(0) {
 		t.Errorf("Expected UID 0, got %v", usr.Uid)
 	}
 
@@ -70,7 +70,7 @@ func TestAToUint32(t *testing.T) {
 
 	testString := "42"
 
-	testUint := AToUint32(testString)
+	testUint := AToU32(testString)
 
 	if uint32(42) != testUint {
 		t.Errorf("Converted String = %d; want uint(42)", testUint)
