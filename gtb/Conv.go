@@ -44,8 +44,8 @@ func AToU32(a string) uint32 {
 }
 
 // FtoA : convert float32 to string
-func FtoA(n float32) string {
-	return strconv.FormatFloat(float64(n), 'f', 6, 32)
+func FtoA(n float64) string {
+	return strconv.FormatFloat(float64(n), 'f', 6, 64)
 }
 
 // MapToString : convert map[string]string to string
