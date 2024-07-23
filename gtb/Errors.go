@@ -9,7 +9,7 @@ func formatError(err error, msg ...string) error {
 	if len(msg) > 0 {
 		errMsg := err.Error()
 		for _, m := range msg {
-			errMsg += m
+			errMsg += Red(m)
 		}
 		err = fmt.Errorf(errMsg)
 	}
