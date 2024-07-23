@@ -1,26 +1,19 @@
 package gtb
 
 import (
-	"errors"
 	"fmt"
 	"os"
 )
 
 func formatError(err error, msg ...string) error {
 	if len(msg) > 0 {
-		errMsg := ""
-		for i, m := range msg {
-			if i > 0 {
-				errMsg += "   " + m + "\n"
-			} else {
-				errMsg += Red(m) + "\n"
-			}
+		errMsg := err.Error()
+		for _, m := range msg {
+			errMsg += m
 		}
-		err = errors.New(errMsg)
-	} else {
-		err = errors.New(Red(err.Error()))
+		err = fmt.Errorf(errMsg)
 	}
-	return fmt.Errorf("\n💔 %s", err)
+	return fmt.Errorf("\n💔 %s", Red(err.Error()))
 }
 
 // EoE : if err is not nil format and print error then exit

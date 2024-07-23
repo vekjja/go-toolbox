@@ -3,7 +3,7 @@ package darksky
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 )
 
@@ -20,7 +20,7 @@ func GetData(lat, long float32, apiKey, units string) (Data, error) {
 		return data, err
 	}
 
-	resData, err := ioutil.ReadAll(res.Body)
+	resData, err := io.ReadAll(res.Body)
 	if err != nil {
 		return data, err
 	}

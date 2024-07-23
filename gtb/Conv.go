@@ -9,6 +9,16 @@ import (
 	"github.com/dustin/go-humanize"
 )
 
+func FalsePtr() *bool {
+	b := false
+	return &b
+}
+
+func TruePtr() *bool {
+	b := true
+	return &b
+}
+
 // AToHRF : Convert string to human readable float
 func AToHRF(a string) string {
 	f := AToF(a)

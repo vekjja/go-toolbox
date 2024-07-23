@@ -3,6 +3,7 @@ package geolocation
 import (
 	"bytes"
 	"encoding/json"
+	"io"
 	"io/ioutil"
 	"net/http"
 )
@@ -34,7 +35,7 @@ func FromIP() (Data, error) {
 		return locationData, err
 	}
 
-	responseData, err := ioutil.ReadAll(res.Body)
+	responseData, err := io.ReadAll(res.Body)
 	if err != nil {
 		return locationData, err
 	}
