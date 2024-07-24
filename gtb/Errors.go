@@ -5,9 +5,9 @@ import (
 	"os"
 )
 
-func formatError(err error, msg ...string) error {
+func FormatError(err error, msg ...string) error {
 	if len(msg) > 0 {
-		errMsg := err.Error()
+		errMsg := ""
 		for _, m := range msg {
 			errMsg += Red(m)
 		}
@@ -19,7 +19,7 @@ func formatError(err error, msg ...string) error {
 // EoE : if err is not nil format and print error then exit
 func EoE(err error, msg ...string) {
 	if err != nil {
-		fmt.Println(formatError(err, msg...))
+		fmt.Println(FormatError(err, msg...))
 		os.Exit(1)
 	}
 }
