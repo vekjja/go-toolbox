@@ -1,4 +1,3 @@
-// File: github.com/seemywingz/gotoolbox/openWeather/openWeather.go
 package openWeather
 
 import "fmt"
