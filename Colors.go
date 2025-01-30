@@ -1,4 +1,4 @@
-package gtb
+package toolbox
 
 import "github.com/fatih/color"
 
