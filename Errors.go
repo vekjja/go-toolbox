@@ -16,11 +16,12 @@ func FormatError(err error, msg ...string) error {
 			errMsg += Red(m)
 		}
 	}
-	errMsg += "\n" + Red(err.Error())
-	return fmt.Errorf("\n💔 %s", Red(errors.New(errMsg)))
+	errMsg += err.Error()
+	return fmt.Errorf("\n💔 %s", errors.New(errMsg))
 }
 
-func EoE(err error) {
+func EoE(err error, msg ...string) {
+	err = FormatError(err, msg...)
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
