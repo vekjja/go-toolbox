@@ -2,7 +2,7 @@ package toolbox
 
 import "time"
 
-func LocalTime(seconds int, offset int, timezone string, format string) string {
+func TimeUTC(seconds int, offset int, timezone string, format string) string {
 	if format == "" {
 		format = "Mon, Jan, 2 - 03:04 PM"
 	}
