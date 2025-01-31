@@ -37,7 +37,7 @@ type NominatimResponse []struct {
 }
 
 // GetGeoData: Get geographical data from Nominatim
-func GetGeoData(location string) (*NominatimResponse, error) {
+func GetGeoData(location string) (NominatimResponse, error) {
 	baseURL := "https://nominatim.openstreetmap.org/search"
 	encoded := url.QueryEscape(location)
 	reqURL := fmt.Sprintf("%s?q=%s&format=json&limit=1", baseURL, encoded)
@@ -63,5 +63,9 @@ func GetGeoData(location string) (*NominatimResponse, error) {
 		return nil, err
 	}
 
-	return &data, nil
+	if len(data) == 0 {
+		return nil, fmt.Errorf("no data found for location: %s", location)
+	}
+
+	return data, nil
 }
