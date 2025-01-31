@@ -59,7 +59,7 @@ func FtoA(n float64) string {
 }
 
 // MapToString : convert map[string]string to string
-func MapToString(m map[string]string) string {
+func MapToString(m map[interface{}]interface{}) string {
 	b := new(bytes.Buffer)
 	for key, value := range m {
 		fmt.Fprintf(b, "  %s: %s\n", key, value)

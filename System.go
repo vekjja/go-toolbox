@@ -11,8 +11,8 @@ import (
 	"strings"
 )
 
-// GetExecPath :
-func GetExecPath() string {
+// ExecPath :
+func ExecPath() string {
 	ex, err := os.Executable()
 	if err != nil {
 		panic(err)
@@ -21,8 +21,8 @@ func GetExecPath() string {
 	return exPath
 }
 
-// GetFilesInDir : return an array of os.Fileinfo for the given path
-func GetFilesInDir(path string) []os.FileInfo {
+// FilesInDir : return an array of os.Fileinfo for the given path
+func FilesInDir(path string) []os.FileInfo {
 	files, err := ioutil.ReadDir(path)
 	if err != nil {
 		log.Fatal(err)
@@ -30,22 +30,22 @@ func GetFilesInDir(path string) []os.FileInfo {
 	return files
 }
 
-// GetHomeDir : returns a full path to user's home directory
-func GetHomeDir() string {
+// HomeDir : returns a full path to user's home directory
+func HomeDir() string {
 	home, err := os.UserHomeDir()
 	EoE(err)
 	return home
 }
 
-// GetInput : return string of user input
-func GetInput() string {
+// Input : return string of user input
+func Input() string {
 	reader := bufio.NewReader(os.Stdin)
 	ans, _ := reader.ReadString('\n')
 	return strings.TrimRight(ans, "\n")
 }
 
-// GetUserInfo :
-func GetUserInfo(userName string, uID int) *user.User {
+// UserInfo :
+func UserInfo(userName string, uID int) *user.User {
 
 	var usr *user.User
 	var err error

@@ -5,7 +5,7 @@ import "strings"
 // Confirm : return confirmation based on user input
 func Confirm(q string) bool {
 	print(q + " (Y/n):")
-	a := GetInput()
+	a := Input()
 	var res bool
 	switch strings.ToLower(a) {
 	case "":
