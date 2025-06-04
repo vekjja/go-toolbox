@@ -47,7 +47,7 @@ go test -v ./gtb
 === RUN   TestGetFilesInDir
 --- PASS: TestGetFilesInDir (0.00s)
 PASS
-ok      github.com/seemywingz/gotoolbox/gtb     0.013s
+ok      github.com/vekjja/gotoolbox/gtb     0.013s
 ```
 ## Run in Docker
 ### Prerequisites 

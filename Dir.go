@@ -15,8 +15,8 @@ func Mkdir(filePath string) {
 	}
 }
 
-// SetRelPath : resolves the absolute path for provided relative path.
-func SetRelPath(relPath string) error {
+// SetDir : resolves the absolute path for provided relative path and sets the working directory.
+func SetDir(relPath string) error {
 	if _, filename, _, ok := runtime.Caller(1); ok {
 		re := regexp.MustCompile("[a-zA-Z0-9-]*.go$")
 		path := filepath.Join(re.ReplaceAllString(filename, ""), relPath)
