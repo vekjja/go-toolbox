@@ -1,4 +1,4 @@
-module github.com/seemywingz/go-toolbox
+module github.com/vekjja/go-toolbox
 
 go 1.22.5
 
